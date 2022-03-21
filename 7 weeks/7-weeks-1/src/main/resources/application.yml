@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: test
+
+logging
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, loggers, prometheus
+  endpoints:
+    health:
+      enabled: true
+      show-details: always
+      show-components: always
+    info:
+      enabled: true
+    loggers:
+      enabled: true
+      prometheus:
+
+
+#logging:
+#  level:
+#    LikeLion7.weeks1.handler: debug
+
+custom:
+  property:
+    single: custom-property
+    comlist: comma, sparated, list, to, value
+
+# custom.property.single
+# custom.property.comlist

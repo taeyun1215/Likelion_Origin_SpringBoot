@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LikeLion.LikeLion5.weeks1.mapper.PostMapper">
+    <insert id="createPost" parameterType="LikeLion.LikeLion5.weeks1.dto.PostDto">
+        insert into POST(title, content, writer, board)
+        values (#{title}, #{content}, #{writer}, ${board})
+        <!-- #{title} == 'title', ${title} == title -->
+    </insert>
+
+    <insert id="cratePostAll" parameterType="LikeLion.LikeLion5.weeks1.dto.PostDto">
+        insert into POST(title, content, writer, board)
+        values
+        <foreach collection="list" item="item" separator=","> <!--separator안에 매계변수로 나눠짐 -->
+            (#{item.title}, #{item.content}, #{item.writer}, ${item.board})
+        </foreach>
+    </insert>
+
+    <select id="readPost" parameterType="int" resultType="LikeLion.LikeLion5.weeks1.dto.PostDto">
+        select * from post where id = ${id}
+    </select>
+
+    <select id="readPostAll" resultType="LikeLion.LikeLion5.weeks1.dto.PostDto">
+        select * from post
+    </select>
+
+    <select id="readPostQuery" parameterType="LikeLion.LikeLion5.weeks1.dto.PostDto" resultType="LikeLion.LikeLion5.weeks1.dto.PostDto">
+        <!--parameterType은 readPostQuery 받을 값 resultType은 readPostQuery가 반환하는 값-->
+        select * from post whrer title = #{title}
+        <if test="writer != null">
+            and writer = #{writer}
+        </if>
+    </select>
+
+    <update id="updatePost" parameterType="LikeLion.LikeLion5.weeks1.dto.PostDto">
+        update post set (title = #{title}, content = #{content}, writer = #{writer}, board = ${board}
+        where id = ${id}
+    </update>
+
+    <delete id="deletePost" parameterType="int">
+        delete from post where id =${id}
+    </delete>
+</mapper>
