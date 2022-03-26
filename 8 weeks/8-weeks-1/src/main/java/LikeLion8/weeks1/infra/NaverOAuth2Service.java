@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Service
-public class NaverOAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class NaverOAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {   // NaverOAuth2Service 네이버로 로그인 연동
     private static final Logger logger = LoggerFactory.getLogger(NaverOAuth2Service.class);
     private final UserRepository userRepository;
 
