@@ -21,12 +21,14 @@ import java.util.Map;
 public class NaverOAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {   // NaverOAuth2Service 네이버로 로그인 연동
     private static final Logger logger = LoggerFactory.getLogger(NaverOAuth2Service.class);
     private final UserRepository userRepository;
+    private final HttpSession httpSession;
 
     public NaverOAuth2Service(
             @Autowired UserRepository userRepository,
             @Autowired HttpSession httpSession
     ) {
         this.userRepository = userRepository;
+        this.httpSession = httpSession;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class NaverOAuth2Service implements OAuth2UserService<OAuth2UserRequest, 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-        String usernameAttributeName = userRequest
+        String usernameAttributeName = userRequest  // 로그인 진행시 키가 되는 pk값을 의미함.
                 .getClientRegistration()
                 .getProviderDetails()
                 .getUserInfoEndpoint()
