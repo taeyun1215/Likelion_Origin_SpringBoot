@@ -1,0 +1,20 @@
+server:
+  port: 8000
+
+spring:
+  cliud:
+    gateway:
+      routes:
+        - id: community-shop
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/shop/**
+          filters:
+            - name: RewritePath
+              args:
+                regexp: /api/(?<path>.*)
+                replacement: /$\{path}
+
+logging:
+  level:
+    Likelion.gateway.filter: trace
